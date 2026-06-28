@@ -19,583 +19,436 @@ body {
 }
 
 h1 {
-  font-size: 2.2rem;
-  color: #ffffff;
+  font-size: 2rem;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   text-align: center;
 }
 
 .subtitle {
   color: #a0a0b0;
-  margin-bottom: 6px;
-  font-size: 1rem;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
   text-align: center;
 }
 
-.snapshot-note {
+.note {
   color: #6a6a7e;
-  margin-bottom: 18px;
-  font-size: 0.8rem;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
   text-align: center;
-  max-width: 700px;
+  max-width: 720px;
 }
 
 .status-bar {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  font-size: 0.85rem;
+  gap: 24px;
+  font-size: 0.82rem;
   color: #8a8a9e;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-.status-item { display:flex; align-items:center; gap:8px; }
-.status-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; background:#fbbf24; }
-.status-dot.loading { animation: pulse 1.5s infinite; background:#fbbf24; }
-.status-dot.success { background:#4ade80; }
-.status-dot.error   { background:#ef4444; }
+.status-item { display:flex; align-items:center; gap:7px; }
+.dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.dot.loading { background:#fbbf24; animation:pulse 1.5s infinite; }
+.dot.ok      { background:#4ade80; }
+.dot.err     { background:#ef4444; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
-
-/* ── bracket layout ── */
+/* ── wrapper ── */
 .bracket-wrapper {
-  width: 100%;
-  max-width: 2000px;
-  overflow-x: auto;
-  padding: 20px 0;
+  width:100%;
+  max-width:2100px;
+  overflow-x:auto;
+  padding:10px 0 30px;
 }
 
-.bracket-container {
-  display: grid;
-  grid-template-columns: repeat(9, minmax(175px, 1fr));
-  gap: 15px;
-  min-width: 1600px;
-  padding: 0 10px;
+.bracket {
+  display:grid;
+  grid-template-columns: repeat(9, minmax(172px,1fr));
+  gap:12px;
+  min-width:1580px;
+  padding:0 8px;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+/* ── columns ── */
+.col {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
 }
 
-.column-title {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #e5a93b;
-  text-align: center;
-  margin-bottom: 15px;
-  font-weight: bold;
-  border-bottom: 2px solid #2a2a35;
-  padding-bottom: 5px;
+.col-title {
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#e5a93b;
+  text-align:center;
+  margin-bottom:12px;
+  font-weight:700;
+  border-bottom:2px solid #2a2a35;
+  padding-bottom:4px;
 }
 
-/* ── match cards ── */
-.match-card {
-  background: #1a1a24;
-  border: 1px solid #2e2e3e;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px 0;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
+/* ── cards ── */
+.card {
+  background:#1a1a24;
+  border:1px solid #2e2e3e;
+  border-radius:8px;
+  padding:9px 10px;
+  margin:8px 0;
+  transition:all .25s ease;
+}
+.card:hover { border-color:#e5a93b; transform:translateY(-2px); box-shadow:0 6px 14px rgba(229,169,59,.15); }
+.card.done  { border-color:#4ade80; }
+
+.card-header {
+  font-size:.68rem;
+  color:#8a8a9e;
+  margin-bottom:7px;
+  border-bottom:1px solid #2a2a35;
+  padding-bottom:3px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.match-card:hover {
-  border-color: #e5a93b;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(229,169,59,0.15);
+.t-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 0;
+  font-size:.86rem;
 }
 
-.match-card.completed { border-color:#4ade80; }
+.t-info { display:flex; align-items:center; overflow:hidden; flex:1; }
 
-.match-header {
-  font-size: 0.72rem;
-  color: #8a8a9e;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #2a2a35;
-  padding-bottom: 3px;
-  font-weight: 600;
+.flag {
+  width:24px; height:18px;
+  border-radius:2px;
+  margin-right:7px;
+  object-fit:cover;
+  flex-shrink:0;
+}
+.flag-ph { width:24px; height:18px; border-radius:2px; margin-right:7px; background:#2a2a35; border:1px dashed #444; flex-shrink:0; }
+
+.t-name {
+  font-weight:500;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:112px;
+}
+.t-name.pending { color:#8a8a9e; font-style:italic; }
+
+.score {
+  font-weight:700;
+  color:#e5a93b;
+  background:#252535;
+  padding:2px 7px;
+  border-radius:4px;
+  min-width:22px;
+  text-align:center;
+  flex-shrink:0;
+  margin-left:5px;
+  font-size:.85rem;
+}
+.score.live { color:#4ade80; }
+
+.card-footer {
+  font-size:.65rem;
+  color:#6a6a7e;
+  margin-top:5px;
+  text-align:right;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.team-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px 0;
-  font-size: 0.88rem;
+/* ── center ── */
+.col-center {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.team-info { display:flex; align-items:center; overflow:hidden; flex:1; }
+.trophy { font-size:3.6rem; animation:float 3s ease-in-out infinite; margin-bottom:10px; }
+@keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-9px)} 100%{transform:translateY(0)} }
 
-.team-flag {
-  width: 24px; height: 18px;
-  border-radius: 2px;
-  margin-right: 8px;
-  object-fit: cover;
-  flex-shrink: 0;
+.final-wrap {
+  background:linear-gradient(135deg,#2e2413,#1a1a24);
+  border:2px solid #e5a93b;
+  border-radius:12px;
+  padding:14px;
+  width:205px;
+  box-shadow:0 0 22px rgba(229,169,59,.2);
 }
 
-.team-flag.placeholder { background:#2a2a35; border:1px dashed #444; display:inline-block; }
-
-.team-name {
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 115px;
+.final-title {
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#e5a93b;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
-.team-name.pending { color:#8a8a9e; font-style:italic; }
+.third-wrap { margin-top:20px; width:205px; }
+.third-title { font-size:.72rem; color:#5c85d6; text-transform:uppercase; font-weight:700; margin-bottom:5px; }
 
-.team-score {
-  font-weight: bold;
-  color: #e5a93b;
-  background: #252535;
-  padding: 2px 7px;
-  border-radius: 4px;
-  min-width: 22px;
-  text-align: center;
-  flex-shrink: 0;
-  margin-left: 6px;
-}
-
-.team-score.live { color:#4ade80; }
-
-.match-footer {
-  font-size: 0.68rem;
-  color: #6a6a7e;
-  margin-top: 6px;
-  text-align: right;
-}
-
-/* ── center / final column ── */
-.center-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.trophy-icon { font-size: 4rem; animation: float 3s ease-in-out infinite; margin-bottom: 12px; }
-@keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
-
-.final-card {
-  background: linear-gradient(135deg, #2e2413 0%, #1a1a24 100%);
-  border: 2px solid #e5a93b;
-  border-radius: 12px;
-  padding: 16px;
-  width: 210px;
-  box-shadow: 0 0 20px rgba(229,169,59,0.2);
-}
-
-.third-place-container { margin-top: 24px; width: 210px; }
-.third-place-title {
-  font-size: 0.75rem;
-  color: #5c85d6;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.error { color:#ef4444; text-align:center; padding:40px; grid-column:1/-1; }
-.loading-msg { color:#8a8a9e; text-align:center; padding:40px; grid-column:1/-1; }
+.err-msg { color:#ef4444; text-align:center; padding:40px; grid-column:1/-1; }
 </style>
 </head>
 <body>
 
 <h1>Fase Final del Mundial 2026</h1>
-<div class="subtitle">Datos en tiempo real desde <strong>worldcup26.ir</strong> · Horario Colombia (UTC-5)</div>
-<div class="snapshot-note">
-  Los cruces de octavos se resuelven automáticamente a partir de los standings reales.
-  Los cupos de "mejor 3.°" se asignan cuando los 12 grupos hayan cerrado su jornada final.
+<div class="subtitle">Datos en tiempo real · <strong>worldcup26.ir</strong> · Horario Colombia (UTC-5)</div>
+<div class="note">
+  Los equipos de R32 ya están resueltos desde el JSON. Los cruces de R16 en adelante
+  se actualizan automáticamente cuando se conozcan los ganadores.
 </div>
 
 <div class="status-bar">
   <div class="status-item">
-    <span class="status-dot loading" id="api-dot"></span>
-    <span id="api-status">Cargando datos…</span>
+    <span class="dot loading" id="dot"></span>
+    <span id="st">Cargando…</span>
   </div>
-  <div class="status-item">
-    <span id="last-update">Última actualización: —</span>
-  </div>
+  <div class="status-item"><span id="upd">Última actualización: —</span></div>
 </div>
 
 <div class="bracket-wrapper">
-  <div class="bracket-container" id="bracket">
-    <div class="loading-msg">Construyendo bracket…</div>
+  <div class="bracket" id="bracket">
+    <div class="err-msg" style="color:#8a8a9e">Cargando bracket…</div>
   </div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-//  CONFIGURACIÓN
-// ─────────────────────────────────────────────
-const PROXY_BASE = "https://script.google.com/macros/s/AKfycby9V6YTOZcWTUD9NtmlFhgJTuIjkdREBGEfyrjSy8FLRvWrARBJn68JKTjVfzmLClkIEA/exec";
+const PROXY = "https://script.google.com/macros/s/AKfycby9V6YTOZcWTUD9NtmlFhgJTuIjkdREBGEfyrjSy8FLRvWrARBJn68JKTjVfzmLClkIEA/exec";
 
-// ─────────────────────────────────────────────
-//  BANDERAS
-// ─────────────────────────────────────────────
-const FLAG = {
+// ── Banderas ──────────────────────────────────────────────
+const FLAGS = {
   'Mexico':'mx','South Africa':'za','South Korea':'kr','Korea Republic':'kr',
   'Czech Republic':'cz','Czechia':'cz',
   'Switzerland':'ch','Canada':'ca','Bosnia and Herzegovina':'ba','Bosnia':'ba','Qatar':'qa',
   'Brazil':'br','Morocco':'ma','Scotland':'gb-sct','Haiti':'ht',
-  'United States':'us','USA':'us','Australia':'au','Paraguay':'py','Turkey':'tr','Türkiye':'tr',
-  'Germany':'de','Ivory Coast':'ci',"Côte d'Ivoire":'ci','Ecuador':'ec','Curaçao':'cw','Curacao':'cw',
+  'United States':'us','USA':'us','Australia':'au','Paraguay':'py',
+  'Turkey':'tr','Türkiye':'tr',
+  'Germany':'de','Ivory Coast':'ci',"Côte d'Ivoire":'ci','Ecuador':'ec',
+  'Curaçao':'cw','Curacao':'cw',
   'Netherlands':'nl','Japan':'jp','Sweden':'se','Tunisia':'tn',
   'Belgium':'be','Egypt':'eg','Iran':'ir','New Zealand':'nz',
   'Spain':'es','Cape Verde':'cv','Uruguay':'uy','Saudi Arabia':'sa',
   'France':'fr','Norway':'no','Senegal':'sn','Iraq':'iq',
   'Argentina':'ar','Algeria':'dz','Austria':'at','Jordan':'jo',
-  'Portugal':'pt','DR Congo':'cd','Democratic Republic of the Congo':'cd','Uzbekistan':'uz','Colombia':'co',
+  'Portugal':'pt','DR Congo':'cd','Democratic Republic of the Congo':'cd',
+  'Uzbekistan':'uz','Colombia':'co',
   'England':'gb-eng','Croatia':'hr','Ghana':'gh','Panama':'pa',
 };
 
-// ─────────────────────────────────────────────
-//  UTILIDADES DE FECHA  (todo a UTC-5 Colombia)
-// ─────────────────────────────────────────────
-const DIAS  = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-const pad   = n => String(n).padStart(2,'0');
-
-// local_date viene como "07/03/2026 18:00"  (hora local del estadio, sin zona)
-// worldcup26.ir usa UTC-5 para todos sus estadios (EE.UU./Canadá/México)
-function formatDate(localDate) {
-  if (!localDate) return '';
-  const [datePart, timePart] = localDate.split(' ');
-  const [mo, dd, yyyy] = datePart.split('/');
-  const d = new Date(`${yyyy}-${mo}-${dd}T${timePart}:00-05:00`);
-  return `${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]} · ${pad(d.getHours())}:${pad(d.getMinutes())}h`;
-}
-
-// ─────────────────────────────────────────────
-//  HTML HELPERS
-// ─────────────────────────────────────────────
-function flagImg(name) {
-  const code = FLAG[name];
-  if (!code) return `<span class="team-flag placeholder"></span>`;
-  return `<img src="https://flagcdn.com/24x18/${code}.png" alt="${name}" class="team-flag"
-               onerror="this.outerHTML='<span class=\\'team-flag placeholder\\'></span>'">`;
-}
-
-function teamRow(name, score, isFinished) {
-  const isPending = !name || name.startsWith('Winner') || name.startsWith('Loser') || name.startsWith('3°');
-  const scoreClass = isFinished ? 'live' : '';
-  const scoreVal   = (isFinished && score !== null && score !== undefined) ? score : '–';
-  return `
-    <div class="team-row">
-      <div class="team-info">
-        ${isPending ? '<span class="team-flag placeholder"></span>' : flagImg(name)}
-        <span class="team-name ${isPending ? 'pending' : ''}">${name || '–'}</span>
-      </div>
-      <span class="team-score ${scoreClass}">${scoreVal}</span>
-    </div>`;
-}
-
-function matchCard(game, homeLabel, awayLabel) {
-  const fin = game.finished === 'TRUE';
-  const header = `#${game.id} · ${formatDate(game.local_date)}`;
-  return `
-    <div class="match-card ${fin ? 'completed' : ''}">
-      <div class="match-header">${header}</div>
-      ${teamRow(homeLabel, fin ? game.home_score : null, fin)}
-      ${teamRow(awayLabel, fin ? game.away_score : null, fin)}
-      <div class="match-footer">Estadio ${game.stadium_id}</div>
-    </div>`;
-}
-
-function column(title, html) {
-  return `<div class="column"><div class="column-title">${title}</div>${html}</div>`;
-}
-
-// ─────────────────────────────────────────────
-//  RESOLUCIÓN DE NOMBRES
-//  Convierte "Winner Group J", "Runner-up Group H", etc. en el nombre real
-//  usando los standings calculados desde /get/games
-// ─────────────────────────────────────────────
-function buildStandings(groupGames) {
-  // groupGames: todos los partidos de fase de grupos ya terminados
-  const pts  = {};  // team_id → pts
-  const gf   = {};
-  const ga   = {};
-  const grp  = {};  // team_id → letter (A…L)
-  const name = {};  // team_id → name_en
-
-  groupGames.forEach(g => {
-    const h = g.home_team_id, a = g.away_team_id;
-    if (!h || !a || h === '0' || a === '0') return;
-
-    // registrar equipos
-    [h, a].forEach(id => {
-      if (!(id in pts)) { pts[id] = 0; gf[id] = 0; ga[id] = 0; }
-    });
-    name[h] = g.home_team_name_en;
-    name[a] = g.away_team_name_en;
-    grp[h]  = g.group;
-    grp[a]  = g.group;
-
-    if (g.finished !== 'TRUE') return;
-
-    const hs = parseInt(g.home_score, 10);
-    const as = parseInt(g.away_score, 10);
-    gf[h] += hs; ga[h] += as;
-    gf[a] += as; ga[a] += hs;
-
-    if (hs > as)      { pts[h] += 3; }
-    else if (hs < as) { pts[a] += 3; }
-    else              { pts[h] += 1; pts[a] += 1; }
-  });
-
-  // Agrupar por letra
-  const groups = {};   // { 'A': [ {id, name, pts, gd, gf}, ... ] }
-  Object.keys(pts).forEach(id => {
-    const g = grp[id];
-    if (!g || g.length > 1) return; // ignorar multi-letter (como "R32")
-    if (!groups[g]) groups[g] = [];
-    groups[g].push({ id, name: name[id], pts: pts[id],
-                     gd: gf[id] - ga[id], gf: gf[id] });
-  });
-
-  // Ordenar cada grupo: pts desc → dif goles desc → goles a favor desc
-  Object.keys(groups).forEach(g => {
-    groups[g].sort((a, b) =>
-      b.pts - a.pts || b.gd - a.gd || b.gf - a.gf
-    );
-  });
-
-  return groups;  // { A: [{id,name,...}, ...], B: ... }
-}
-
-function resolveLabel(label, standings) {
-  if (!label) return '–';
-
-  // "Winner Group X"
-  let m = label.match(/^Winner Group ([A-L])$/);
-  if (m) {
-    const g = standings[m[1]];
-    return (g && g[0]) ? g[0].name : label;
-  }
-
-  // "Runner-up Group X"
-  m = label.match(/^Runner-up Group ([A-L])$/);
-  if (m) {
-    const g = standings[m[1]];
-    return (g && g[1]) ? g[1].name : label;
-  }
-
-  // "3rd Group X/Y/Z/..."  — no resolvible hasta cerrar los 12 grupos
-  m = label.match(/^3rd Group ([A-L/]+)$/);
-  if (m) return `3° mejor (${m[1]})`;
-
-  // "Winner Match NN" / "Loser Match NN"
-  m = label.match(/^(Winner|Loser) Match (\d+)$/);
-  if (m) return `${m[1] === 'Winner' ? 'Gan.' : 'Per.'} #${m[2]}`;
-
-  return label;
-}
-
-// ─────────────────────────────────────────────
-//  ESTADIOS
-// ─────────────────────────────────────────────
-const STADIUMS = {
-  1:'AT&T (Dallas)',2:'Levi\'s (SF)',3:'Rose Bowl (LA)',4:'SoFi (LA)',
+// ── Estadios ─────────────────────────────────────────────
+const STAD = {
+  1:'AT&T (Dallas)',2:"Levi's (SF)",3:'Rose Bowl (LA)',4:'SoFi (LA)',
   5:'Hard Rock (Miami)',6:'MetLife (NY/NJ)',7:'Arrowhead (KC)',
   8:'Lincoln Financial (Philly)',9:'Lumen Field (Seattle)',
-  10:'Gillette (Boston)',11:'Empower (Denver)',12:'Estadio Azteca',
+  10:'Gillette (Boston)',11:'Empower (Denver)',12:'Azteca (CDMX)',
   13:'BC Place (Vancouver)',14:'Mercedes-Benz (Atlanta)',
   15:'NRG (Houston)',16:'Q2 (Austin)',
 };
 
-// ─────────────────────────────────────────────
-//  CONSTRUCCIÓN DEL BRACKET
-// ─────────────────────────────────────────────
+// ── Fecha a Colombia UTC-5 ────────────────────────────────
+const DIAS  = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const pad   = n => String(n).padStart(2,'0');
 
-/*
-  Estructura del fixture real (IDs de worldcup26.ir/get/games):
+function fmtDate(s) {
+  if (!s) return '';
+  const [dp, tp] = s.split(' ');
+  const [mo,dd,yy] = dp.split('/');
+  const d = new Date(`${yy}-${mo}-${dd}T${tp}:00-05:00`);
+  return `${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]} · ${pad(d.getHours())}:${pad(d.getMinutes())}h`;
+}
 
-  Round of 32 (16 partidos): id 73–88
-  Round of 16  (8 partidos): id 89–96
-  Quarter-finals (4 partidos): id 97–100
-  Semi-finals    (2 partidos): id 101–102
-  Third place                : id 103
-  Final                      : id 104
+// ── Resolver label cuando no hay nombre directo ───────────
+// Para R32 el JSON ya tiene home_team_name_en / away_team_name_en resueltos.
+// Para R16+ solo tenemos labels tipo "Winner Match 74".
+function resolveLabel(g, side) {
+  const id  = side === 'h' ? g.home_team_id  : g.away_team_id;
+  const nm  = side === 'h' ? g.home_team_name_en : g.away_team_name_en;
+  const lbl = side === 'h' ? g.home_team_label   : g.away_team_label;
 
-  Árbol fijo (basado en los home_team_label/away_team_label del JSON real):
+  // Si hay nombre real y el id no es 0, úsalo
+  if (id && id !== '0' && nm) return nm;
 
-  SF izquierda  → id 101  (Winner Match 97  vs Winner Match 98)
-  SF derecha    → id 102  (Winner Match 99  vs Winner Match 100)
+  // Traducir labels al español
+  if (!lbl) return '–';
+  let m;
+  m = lbl.match(/^Winner Group ([A-L])$/);
+  if (m) return `1.° Grupo ${m[1]}`;
+  m = lbl.match(/^Runner-up Group ([A-L])$/);
+  if (m) return `2.° Grupo ${m[1]}`;
+  m = lbl.match(/^3rd Group ([A-L/]+)$/);
+  if (m) return `Mejor 3.° (${m[1]})`;
+  m = lbl.match(/^Winner Match (\d+)$/);
+  if (m) return `Gan. #${m[1]}`;
+  m = lbl.match(/^Loser Match (\d+)$/);
+  if (m) return `Per. #${m[1]}`;
+  return lbl;
+}
 
-  QF izq izq   → id 97   (Winner Match 89  vs Winner Match 90)
-  QF izq der   → id 98   (Winner Match 91  vs Winner Match 92)
-  QF der izq   → id 99   (Winner Match 93  vs Winner Match 94)  ← corregido
-  QF der der   → id 100  (Winner Match 95  vs Winner Match 96)
+function isPending(name) {
+  return !name || name.startsWith('Gan.') || name.startsWith('Per.')
+    || name.startsWith('1.°') || name.startsWith('2.°')
+    || name.startsWith('Mejor');
+}
 
-  R16 col-izq  → 89 (W83 vs W84), 90 (W85 vs W87)
-  R16 col-der  → 91 (W76 vs W78), 92 (W79 vs W80)
-  R16 col-izq2 → 93 (W83 vs W84) ...ver abajo
-  R16 col-der2 → 95 (W86 vs W88), 96 (W85 vs W87)
+// ── HTML de una fila de equipo ────────────────────────────
+function tRow(name, score, done) {
+  const pend = isPending(name);
+  const flagCode = FLAGS[name];
+  const flagHtml = (!pend && flagCode)
+    ? `<img src="https://flagcdn.com/24x18/${flagCode}.png" alt="${name}" class="flag"
+            onerror="this.outerHTML='<span class=\\'flag-ph\\'></span>'">`
+    : `<span class="flag-ph"></span>`;
+  const sc = (done && score !== null && score !== undefined && score !== 'null')
+    ? `<span class="score live">${score}</span>`
+    : `<span class="score">–</span>`;
+  return `<div class="t-row">
+    <div class="t-info">
+      ${flagHtml}
+      <span class="t-name ${pend?'pending':''}">${name || '–'}</span>
+    </div>${sc}</div>`;
+}
 
-  Mapeo real del JSON (home_team_label / away_team_label):
-    #89: Winner Match 74 vs Winner Match 77  (alimenta QF97)
-    #90: Winner Match 73 vs Winner Match 75  (alimenta QF97)  ← antes no había
-    #91: Winner Match 76 vs Winner Match 78  (alimenta QF98? no)
+// ── HTML de una match card ────────────────────────────────
+function mkCard(g) {
+  if (!g) return '<div class="card" style="opacity:.25"><div class="card-header">–</div></div>';
+  const done = g.finished === 'TRUE';
+  const h = resolveLabel(g,'h');
+  const a = resolveLabel(g,'a');
+  const st = STAD[parseInt(g.stadium_id)] || `Est. ${g.stadium_id}`;
+  return `<div class="card ${done?'done':''}">
+    <div class="card-header">#${g.id} · ${fmtDate(g.local_date)}</div>
+    ${tRow(h, g.home_score, done)}
+    ${tRow(a, g.away_score, done)}
+    <div class="card-footer">${st}</div>
+  </div>`;
+}
 
-  Para no equivocarnos, leemos directamente los labels del JSON y
-  dejamos que el árbol se autodibuje a partir de id 104 → 103/101/102 → QF → R16 → R32.
-*/
+function col(title, cards, center=false) {
+  return `<div class="col ${center?'col-center':''}">
+    <div class="col-title">${title}</div>
+    ${cards}
+  </div>`;
+}
 
-function buildBracket(allGames) {
+// ── Construcción del bracket ──────────────────────────────
+//
+//  Árbol real (verificado con el JSON de worldcup26.ir):
+//
+//  SF101 ← QF97  (W89 vs W90)   SF101 ← QF98  (W93 vs W94)
+//  SF102 ← QF99  (W91 vs W92)   SF102 ← QF100 (W95 vs W96)
+//
+//  QF97: R16-89 (W74,W77)  +  R16-90 (W73,W75)
+//  QF98: R16-93 (W83,W84)  +  R16-94 (W81,W82)
+//  QF99: R16-91 (W76,W78)  +  R16-92 (W79,W80)
+//  QF100:R16-95 (W86,W88)  +  R16-96 (W85,W87)
+//
+//  R16-89 ← R32: 74,77
+//  R16-90 ← R32: 73,75
+//  R16-93 ← R32: 83,84
+//  R16-94 ← R32: 81,82
+//  R16-91 ← R32: 76,78
+//  R16-92 ← R32: 79,80
+//  R16-95 ← R32: 86,88
+//  R16-96 ← R32: 85,87
+//
+//  Distribución visual (izq→centro←der):
+//  Col1 R32-L: 74,77,73,75,83,84,81,82
+//  Col2 R16-L: 89,90,93,94
+//  Col3 QF-L:  97,98
+//  Col4 SF-L:  101
+//  Col5 FINAL: 104 + 103
+//  Col6 SF-R:  102
+//  Col7 QF-R:  99,100
+//  Col8 R16-R: 91,92,95,96
+//  Col9 R32-R: 76,78,79,80,86,88,85,87
+
+const R32L = [74,77,73,75,83,84,81,82];
+const R16L = [89,90,93,94];
+const QFL  = [97,98];
+
+const R32R = [76,78,79,80,86,88,85,87];
+const R16R = [91,92,95,96];
+const QFR  = [99,100];
+
+function buildBracket(games) {
   const byId = {};
-  allGames.forEach(g => { byId[g.id] = g; });
+  games.forEach(g => { byId[String(g.id)] = g; });
 
-  const standings = buildStandings(allGames.filter(g => g.type === 'group'));
+  const g = id => byId[String(id)];
 
-  function label(game, side) {
-    const raw = side === 'home' ? game.home_team_label : game.away_team_label;
-    // Si el partido ya tiene equipos reales asignados (id ≠ 0) usamos el nombre
-    const id  = side === 'home' ? game.home_team_id : game.away_team_id;
-    const nm  = side === 'home' ? game.home_team_name_en : game.away_team_name_en;
-    if (id && id !== '0' && nm) return nm;
-    return resolveLabel(raw, standings);
-  }
-
-  function card(game) {
-    if (!game) return '<div class="match-card" style="opacity:.3"><div class="match-header">–</div></div>';
-    const h = label(game, 'home');
-    const a = label(game, 'away');
-    const st = STADIUMS[game.stadium_id] || `Estadio ${game.stadium_id}`;
-    const fin = game.finished === 'TRUE';
-    const header = `#${game.id} · ${formatDate(game.local_date)}`;
-    return `
-      <div class="match-card ${fin ? 'completed' : ''}">
-        <div class="match-header">${header}</div>
-        ${teamRow(h, fin ? game.home_score : null, fin)}
-        ${teamRow(a, fin ? game.away_score : null, fin)}
-        <div class="match-footer">${st}</div>
-      </div>`;
-  }
-
-  // Recoger partidos por tipo
-  const r32 = allGames.filter(g => g.type === 'r32').sort((a,b) => Number(a.id) - Number(b.id));
-  const r16 = allGames.filter(g => g.type === 'r16').sort((a,b) => Number(a.id) - Number(b.id));
-  const qf  = allGames.filter(g => g.type === 'qf' ).sort((a,b) => Number(a.id) - Number(b.id));
-  const sf  = allGames.filter(g => g.type === 'sf' ).sort((a,b) => Number(a.id) - Number(b.id));
-  const fin = allGames.find(g => g.type === 'final');
-  const trd = allGames.find(g => g.type === 'third');
-
-  /*
-    Distribución visual del bracket (izquierda → centro ← derecha):
-
-    Col 1 (R32 izq):  partidos 73,74,75,76,77,78,79,80   (8 partidos)
-    Col 2 (R16 izq):  partidos 89,90,91,92                (4 partidos)
-    Col 3 (QF  izq):  partidos 97,98                      (2 partidos)
-    Col 4 (SF  izq):  partido  101
-    Col 5 (Centro):   Final + 3er puesto
-    Col 6 (SF  der):  partido  102
-    Col 7 (QF  der):  partidos 99,100
-    Col 8 (R16 der):  partidos 93,94,95,96
-    Col 9 (R32 der):  partidos 81,82,83,84,85,86,87,88
-
-    La división izq/der se basa en cómo los labels del JSON enlazan
-    SF101 ← QF97,98  y  SF102 ← QF99,100
-  */
-
-  // Dividir R32 en dos mitades de 8
-  const r32L = r32.slice(0, 8);
-  const r32R = r32.slice(8, 16);
-
-  // R16: ids 89-96
-  // 89,90,91,92 alimentan QF97,98 (izquierda)
-  // 93,94,95,96 alimentan QF99,100 (derecha)
-  const r16L = r16.slice(0, 4);
-  const r16R = r16.slice(4, 8);
-
-  // QF: 97,98 izq  |  99,100 der
-  const qfL = qf.slice(0, 2);
-  const qfR = qf.slice(2, 4);
-
-  const sfL = sf[0];
-  const sfR = sf[1];
-
-  const cardsR32L = r32L.map(card).join('');
-  const cardsR32R = r32R.map(card).join('');
-  const cardsR16L = r16L.map(card).join('');
-  const cardsR16R = r16R.map(card).join('');
-  const cardsQFL  = qfL.map(card).join('');
-  const cardsQFR  = qfR.map(card).join('');
-
-  const centerHTML = `
-    <div class="column center-column">
-      <div class="trophy-icon">🏆</div>
-      <div class="final-card">
-        <div class="column-title" style="border:none;margin:0 0 8px;">Gran Final</div>
-        ${card(fin)}
+  const centerHtml = `
+    <div class="col col-center">
+      <div class="trophy">🏆</div>
+      <div class="final-wrap">
+        <div class="final-title">Gran Final</div>
+        ${mkCard(g(104))}
       </div>
-      <div class="third-place-container">
-        <div class="third-place-title">Tercer Puesto</div>
-        ${card(trd)}
+      <div class="third-wrap">
+        <div class="third-title">Tercer Puesto</div>
+        ${mkCard(g(103))}
       </div>
     </div>`;
 
   return [
-    column('Octavos', cardsR32L),
-    column('Cuartos', cardsR16L),
-    column('Semis', cardsQFL),
-    column('Semifinal', sfL ? card(sfL) : ''),
-    centerHTML,
-    column('Semifinal', sfR ? card(sfR) : ''),
-    column('Semis', cardsQFR),
-    column('Cuartos', cardsR16R),
-    column('Octavos', cardsR32R),
+    col('1/16 de Final', R32L.map(id=>mkCard(g(id))).join('')),
+    col('Octavos',       R16L.map(id=>mkCard(g(id))).join('')),
+    col('Cuartos',       QFL .map(id=>mkCard(g(id))).join('')),
+    col('Semifinal',     mkCard(g(101))),
+    centerHtml,
+    col('Semifinal',     mkCard(g(102))),
+    col('Cuartos',       QFR .map(id=>mkCard(g(id))).join('')),
+    col('Octavos',       R16R.map(id=>mkCard(g(id))).join('')),
+    col('1/16 de Final', R32R.map(id=>mkCard(g(id))).join('')),
   ].join('');
 }
 
-// ─────────────────────────────────────────────
-//  STATUS UI
-// ─────────────────────────────────────────────
-function setStatus(text, state) {
-  document.getElementById('api-status').textContent = text;
-  document.getElementById('api-dot').className = `status-dot ${state}`;
-}
-function setLastUpdate() {
-  const now = new Date();
-  document.getElementById('last-update').textContent =
-    `Última actualización: ${pad(now.getHours())}:${pad(now.getMinutes())}h`;
-}
-
-// ─────────────────────────────────────────────
-//  CARGA PRINCIPAL
-// ─────────────────────────────────────────────
+// ── Carga principal ───────────────────────────────────────
 async function load() {
-  setStatus('Cargando partidos…', 'loading');
+  document.getElementById('dot').className = 'dot loading';
+  document.getElementById('st').textContent = 'Actualizando…';
   try {
-    const res = await fetch(`${PROXY_BASE}?proxy=games`);
+    const res  = await fetch(`${PROXY}?proxy=games`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-
-    // El endpoint puede devolver { games: [...] } o un array directo
     const games = Array.isArray(data) ? data : (data.games || []);
     if (!games.length) throw new Error('Sin partidos en la respuesta');
 
     document.getElementById('bracket').innerHTML = buildBracket(games);
-    setStatus(`${games.length} partidos cargados ✓`, 'success');
-    setLastUpdate();
-  } catch (err) {
-    console.error(err);
+    document.getElementById('dot').className = 'dot ok';
+    document.getElementById('st').textContent = `${games.length} partidos cargados ✓`;
+
+    const now = new Date();
+    document.getElementById('upd').textContent =
+      `Última actualización: ${pad(now.getHours())}:${pad(now.getMinutes())}h`;
+  } catch(e) {
+    console.error(e);
     document.getElementById('bracket').innerHTML =
-      `<div class="error">❌ Error: ${err.message}<br><small>Verifica que el Apps Script tenga el endpoint ?proxy=games activo.</small></div>`;
-    setStatus('Error al cargar', 'error');
+      `<div class="err-msg">❌ ${e.message}<br><small>Verifica que el Apps Script tenga ?proxy=games activo.</small></div>`;
+    document.getElementById('dot').className = 'dot err';
+    document.getElementById('st').textContent = 'Error al cargar';
   }
 }
 
 load();
-setInterval(load, 120000); // refresca cada 2 min
+setInterval(load, 120000);
 </script>
 </body>
 </html>
